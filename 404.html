@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>404 — Page indisponible</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{ --red:#c1121f; --ink:#ffffff; --rule:rgba(255,255,255,.35); --maxw:720px }
+    *{ box-sizing:border-box }
+    html,body{ height:100%; margin:0 }
+    body{
+      font-family:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      background: var(--red); color: var(--ink);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    }
+    .wrap{ min-height:100svh; display:grid; place-items:center; padding:24px }
+    main{ width:min(var(--maxw),92vw); text-align:center }
+    h1{ margin:0; font-weight:800; font-size: clamp(56px, 12vw, 140px); letter-spacing:-.02em }
+    .subtitle{ margin:8px 0 18px; font-weight:600; font-size: clamp(18px, 3.2vw, 28px) }
+    .rule{ width:100%; height:2px; background: var(--rule); margin: 12px auto 28px }
+    p{ margin:0 0 24px; font-size: clamp(14px, 2.4vw, 18px); opacity:.95 }
+    .btn{
+      display:inline-block; padding:14px 22px; font-weight:800; letter-spacing:.02em;
+      background:#ffffff; color:#000; border:2px solid #ffffff;
+      text-decoration:none; cursor:pointer; user-select:none;
+    }
+    .btn:focus-visible{ outline:3px solid #fff; outline-offset:3px }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main>
+      <h1>404</h1>
+      <div class="rule" aria-hidden="true"></div>
+      <div class="subtitle">Page indisponible</div>
+      <p>La page que vous cherchez est introuvable ou a été déplacée.</p>
+      <button class="btn" type="button" onclick="goBack()">Revenir en arrière</button>
+    </main>
+  </div>
+
+  <script>
+    function goBack(){
+      if (document.referrer && document.referrer !== location.href) {
+        history.back();
+      } else {
+        window.location.href = 'index.html';
+      }
+    }
+  </script>
+</body>
+</html>
