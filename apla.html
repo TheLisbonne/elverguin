@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Christian Boltanski - Les Archives du Cœur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#faf7f2;
+      --ink:#0f172a;
+      --accent:#1a2b9b;
+      --muted:#6b7280;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      background:var(--bg);
+      color:var(--ink);
+      overflow:hidden;
+    }
+    .slide{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      padding:8vmin;
+      opacity:0; transform:translateY(30px) scale(.98);
+      transition:opacity .6s ease, transform .6s ease;
+      pointer-events:none;
+    }
+    .slide.current{opacity:1; transform:none; pointer-events:auto;}
+    .slide .content{max-width:1100px; width:100%;}
+    h1,h2,h3{margin:.2em 0 .4em 0; line-height:1.08}
+    h1{font-size:clamp(36px,7.2vmin,86px); font-weight:800; letter-spacing:-0.02em}
+    h2{font-size:clamp(28px,4.6vmin,54px); font-weight:800; color:var(--accent)}
+    h3{font-size:clamp(20px,3.4vmin,32px); font-weight:700}
+    p{font-size:clamp(16px,2.2vmin,20px); line-height:1.6; color:var(--ink)}
+    .muted{color:var(--muted)}
+    ul{font-size:clamp(16px,2.2vmin,20px); line-height:1.6; margin:.6em 0 0 0; padding-left:1.2em}
+    li + li{margin-top:.4em}
+    .grid{display:grid; gap:1.4rem}
+    .cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .kbd{display:inline-block; padding:.18em .45em; border-radius:.5em; border:1px solid #e5e7eb; background:#fff; font-weight:600}
+    .badge{
+      position:fixed; bottom:20px; right:20px;
+      font-size:clamp(12px,1.8vmin,14px);
+      color:#111; background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
+      border:1px solid #eee; border-radius:12px; padding:.5em .8em;
+      box-shadow:0 10px 25px rgba(16,24,40,.08);
+    }
+    .progress{
+      position:fixed; top:0; left:0; height:6px; background:linear-gradient(90deg,var(--accent),#8ab4ff);
+      width:0%; transition:width .35s ease;
+      box-shadow:0 0 0 1px rgba(0,0,0,.02) inset;
+    }
+    .dot{
+      position:absolute; top:50%; left:50%; width:18vmin; height:18vmin; border-radius:50%;
+      background:radial-gradient(circle at 35% 30%,#fff 0%,#f2f2ff 20%,#dfe7ff 60%,#c7d2fe 100%);
+      filter:blur(0.2px);
+      animation:beat 1.6s ease-in-out infinite;
+      transform:translate(-50%,-50%);
+      opacity:.35;
+    }
+    @keyframes beat{
+      0%{transform:translate(-50%,-50%) scale(1)}
+      30%{transform:translate(-50%,-50%) scale(1.08)}
+      60%{transform:translate(-50%,-50%) scale(1)}
+      100%{transform:translate(-50%,-50%) scale(1)}
+    }
+    .quote{
+      border-left:4px solid var(--accent);
+      padding-left:1rem; margin-top:.6rem; color:#1f2937;
+      font-weight:500; font-style:italic;
+    }
+    .small{font-size:clamp(13px,1.8vmin,16px)}
+    .credit{position:fixed; left:20px; bottom:20px; font-size:12px; color:#6b7280}
+    .kbd-help{display:inline-block; margin-left:.3em; opacity:.85}
+    .cover .super{font-size:clamp(14px,1.8vmin,16px); text-transform:uppercase; letter-spacing:.18em; color:var(--muted); font-weight:700}
+    .cover h1 span{color:var(--accent)}
+    .footnotes{opacity:.8; font-size:clamp(12px,1.6vmin,14px)}
+    .exit{
+      position:fixed; top:12px; right:12px;
+      z-index:9999;
+      background:#e11d48; color:#fff; text-decoration:none; font-weight:700;
+      padding:.42rem .7rem; border-radius:8px; border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 6px 18px rgba(225,29,72,.25);
+      font-size:14px;
+    }
+    .exit:focus{outline:3px solid rgba(225,29,72,.35); outline-offset:2px}
+    @media (max-width:900px){ .cols-2{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <a class="exit" href="index.html" title="Quitter">Quitter</a>
+
+  <section class="slide current cover" data-title="Couverture">
+    <div class="dot" aria-hidden="true"></div>
+    <div class="content">
+      <div class="super">Analyse d'œuvre - 3e</div>
+      <h1><span>Christian Boltanski</span> - Les Archives du Cœur</h1>
+      <p class="muted">Projet d'archive sonore mondiale (2008 - en cours) • Installation participative • Mémoire, absence, trace.</p>
+      <p class="small muted">Présenté par : <strong>Elouan VERGUIN</strong> - Classe 3e</p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="L'idée">
+    <div class="content">
+      <h2>L’idée en une phrase</h2>
+      <p><strong>Conserver le battement de cœur de chacun</strong> comme une trace intime et universelle, pour former une <em>mémoire collective</em> accessible à tous.</p>
+      <div class="quote">« Plutôt que de regarder l’œuvre de l’extérieur, le visiteur en fait l’expérience de l’intérieur. »</div>
+      <p class="muted small">Thèmes : mémoire • disparition • identité • rituel • archive • participation du public.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Description formelle">
+    <div class="content grid cols-2">
+      <div>
+        <h2>Description formelle</h2>
+        <ul>
+          <li><strong>Type</strong> : installation sonore participative et base de données.</li>
+          <li><strong>Début</strong> : 2008 - projet toujours vivant.</li>
+          <li><strong>Lieu principal</strong> : site permanent sur l’île de <strong>Teshima</strong> (Japon), au sein du Benesse Art Site Naoshima.</li>
+          <li><strong>Composants</strong> : cabine d’enregistrement, salle d’écoute, archive numérique consultable.</li>
+          <li><strong>Matériaux</strong> : voix du cœur (enregistrements), haut-parleur, ordinateur/serveur, fiches d’archives.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Ce que vit un visiteur</h3>
+        <ul>
+          <li>Il <strong>enregistre</strong> son battement de cœur dans une cabine.</li>
+          <li>Il peut <strong>écouter</strong> le cœur d’une personne (par nom/date) dans une salle sombre.</li>
+          <li>Le son <strong>remplit l’espace</strong>, créant un moment intime, simple et puissant.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Démarche">
+    <div class="content grid cols-2">
+      <div>
+        <h2>Démarche artistique</h2>
+        <ul>
+          <li><strong>Collecter</strong> une trace minimale de la vie (le rythme cardiaque).</li>
+          <li><strong>Archiver</strong> des millions d’existences sans hiérarchie : une mémoire horizontale.</li>
+          <li><strong>Faire participer</strong> le public : l’œuvre se construit avec nous.</li>
+          <li><strong>Mettre en tension</strong> individuel / collectif, intime / public, vie / disparition.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Vocabulaire utile</h3>
+        <ul>
+          <li>Archive • Installation • Participation • Trace • Mémoire • Rituel • Minimal.</li>
+          <li>Sonorité <em>invisible</em> mais <strong>physique</strong> : on la ressent autant qu’on l’entend.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Contexte">
+    <div class="content grid cols-2">
+      <div>
+        <h2>Contexte et repères</h2>
+        <ul>
+          <li>Christian Boltanski (1944–2021) : mémoire, perte, anonymat, archives, portraits.</li>
+          <li>Le projet circule <strong>dans le monde</strong> via des stations d’enregistrement temporaires.</li>
+          <li>Le site de Teshima conserve et fait écouter la <strong>collection de cœurs</strong>.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Pourquoi au Japon ?</h3>
+        <ul>
+          <li>Un <strong>lieu retiré</strong> pour abriter une mémoire commune.</li>
+          <li>Entre <strong>rite</strong> (méditation, recueillement) et <strong>outil</strong> (base de données).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Interprétations">
+    <div class="content">
+      <h2>Interprétations possibles</h2>
+      <ul>
+        <li><strong>Mémorial laïque</strong> : un « cimetière sonore » où chaque battement devient portrait.</li>
+        <li><strong>Égalité radicale</strong> : tous les cœurs ont le même poids, du plus célèbre à l’anonyme.</li>
+        <li><strong>Après la mort</strong>, il reste une <em>trace sensible</em> - ni photo ni nom nécessaires.</li>
+        <li><strong>Musée du vivant</strong> : l’œuvre grandit tant que des humains participent.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Échos">
+    <div class="content grid cols-2">
+      <div>
+        <h2>Échos dans l’œuvre de Boltanski</h2>
+        <ul>
+          <li><strong>Personnes</strong> (Monumenta, 2010) : accumulation d’habits - présence/absence.</li>
+          <li><strong>Réserves</strong> : archives, fiches, boîtes, lumières vacillantes.</li>
+          <li><strong>Monuments</strong> : portraits anonymes, ampoules comme bougies.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Mots-clés à retenir</h3>
+        <ul>
+          <li>Collecte • Archive • Disparition • Empathie • Universel • Intime • Son • Rituel</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="3 plans">
+    <div class="content">
+      <h2>« Les Archives du Cœur » - 3 plans</h2>
+      <div class="grid cols-2" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem">
+        <figure style="margin:0">
+          <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/d3/d9/c3/caption.jpg?w=900&h=500&s=1" alt="Bâtiment de l'œuvre sur la plage de Teshima (extérieur) - Les Archives du Cœur" style="width:100%;height:52vh;object-fit:cover;border-radius:14px;box-shadow:0 10px 30px rgba(16,24,40,.10)" />
+          <figcaption class="small muted" style="margin-top:.5rem">Extérieur - Bâtiment sur la plage de Teshima.</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <img src="https://d3ff0u7gkaoc8q.cloudfront.net/files/ArtworkImages/d7ee36ee-819f-4812-965f-52b320917b8c/value01/c74db6d584dbb910b1c449e1b74b1e80_l.jpg" alt="Heart Room - ampoule qui bat au rythme d’un cœur - Les Archives du Cœur" style="width:100%;height:52vh;object-fit:cover;border-radius:14px;box-shadow:0 10px 30px rgba(16,24,40,.10)" />
+          <figcaption class="small muted" style="margin-top:.5rem">Cœur de l’installation - « Heart Room ».</figcaption>
+        </figure>
+        <figure style="margin:0">
+          <img src="https://benesse-artsite.jp/en/art/boltanski_kv_thumb_01_pc.jpg" alt="Salle d’écoute - postes avec casques face à la mer - Les Archives du Cœur" style="width:100%;height:52vh;object-fit:cover;border-radius:14px;box-shadow:0 10px 30px rgba(16,24,40,.10)" />
+          <figcaption class="small muted" style="margin-top:.5rem">Salle d’écoute - postes face à la mer.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Conclusion">
+    <div class="content">
+      <h2>Conclusion</h2>
+      <ul>
+        <li>Une œuvre <strong>simple</strong> (un son) pour une idée <strong>immense</strong> (la mémoire de tous).</li>
+        <li>Le visiteur devient <strong>co-auteur</strong> : l’archive ne vit que si nous y participons.</li>
+        <li>« Les Archives du Cœur » : un lieu de <strong>recueillement</strong> autant qu’une <strong>base de données</strong>.</li>
+      </ul>
+      <p class="muted small">Pour aller plus loin : Benesse Art Site Naoshima (Teshima) • Dossiers du Centre Pompidou • Articles France Inter • Parcours de Boltanski.</p>
+    </div>
+  </section>
+
+  <div class="badge">Appuie sur <span class="kbd">Espace</span><span class="kbd-help"> (⇧ + Espace pour revenir)</span></div>
+  <div class="credit">Elouan VERGUIN, 3e, Rene Caillie</div>
+
+  <script>
+    (function(){
+      const slides=Array.from(document.querySelectorAll('.slide'));
+      const progress=document.getElementById('progress');
+      let i=0;
+      function show(idx){
+        if(idx<0||idx>=slides.length) return;
+        slides[i].classList.remove('current');
+        i=idx;
+        slides[i].classList.add('current');
+        progress.style.width=((i+1)/slides.length*100).toFixed(2)+'%';
+        document.title=slides[i].dataset.title+' - Boltanski';
+      }
+      function next(){ if(i<slides.length-1) show(i+1); }
+      function prev(){ if(i>0) show(i-1); }
+      window.addEventListener('keydown',(e)=>{
+        if(e.code==='Space'){
+          e.preventDefault();
+          if(e.shiftKey) prev(); else next();
+        }
+      });
+      show(0);
+    })();
+  </script>
+</body>
+</html>
