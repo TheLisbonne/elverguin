@@ -3,225 +3,88 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Christian Boltanski - Les Archives du Cœur</title>
+  <title>Accueil — Elouan VERGUIN (3e)</title>
+  <meta name="color-scheme" content="light only">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
     :root{
-      --bg:#faf7f2;
-      --ink:#0f172a; /* slate-900 */
-      --accent:#1a2b9b; /* deep blue */
-      --muted:#6b7280;
+      --ink:#0a0a0a;
+      --muted:#6f7277;
+      --h:56px;
+      --b:1px;
+      --maxw:640px;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
     body{
-      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
-      background: var(--bg);
-      color: var(--ink);
-      overflow:hidden;
+      font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;
+      background:#fff;color:var(--ink);
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
     }
-    .slide{
-      position:absolute; inset:0;
-      display:flex; align-items:center; justify-content:center;
-      padding:8vmin;
-      opacity:0; transform: translateY(30px) scale(.98);
-      transition: opacity .6s ease, transform .6s ease;
-      pointer-events:none;
-    }
-    .slide.current{opacity:1; transform: none; pointer-events:auto;}
-    .slide .content{max-width:1100px; width:100%;}
-    h1,h2,h3{margin:.2em 0 .4em 0; line-height:1.08}
-    h1{font-size: clamp(36px, 7.2vmin, 86px); font-weight:800; letter-spacing:-0.02em}
-    h2{font-size: clamp(28px, 4.6vmin, 54px); font-weight:800; color:var(--accent)}
-    h3{font-size: clamp(20px, 3.4vmin, 32px); font-weight:700}
-    p{font-size: clamp(16px, 2.2vmin, 20px); line-height:1.6; color:var(--ink)}
-    .muted{color:var(--muted)}
-    ul{font-size: clamp(16px, 2.2vmin, 20px); line-height:1.6; margin:.6em 0 0 0; padding-left:1.2em}
-    li + li{margin-top:.4em}
-    .grid{display:grid; gap:1.4rem}
-    .cols-2{grid-template-columns: repeat(2, minmax(0,1fr))}
-    .kbd{display:inline-block; padding:.18em .45em; border-radius:.5em; border:1px solid #e5e7eb; background:white; font-weight:600}
-    .badge{
-      position:fixed; bottom:20px; right:20px;
-      font-size: clamp(12px,1.8vmin,14px);
-      color:#111; background:rgba(255,255,255,.75); backdrop-filter: blur(6px);
-      border:1px solid #eee; border-radius:12px; padding:.5em .8em;
-      box-shadow: 0 10px 25px rgba(16,24,40,.08);
-    }
-    .progress{
-      position:fixed; top:0; left:0; height:6px; background: linear-gradient(90deg, var(--accent), #8ab4ff);
-      width:0%; transition: width .35s ease;
-      box-shadow:0 0 0 1px rgba(0,0,0,.02) inset;
-    }
-    .dot{
-      position:absolute; top:50%; left:50%; width:18vmin; height:18vmin; border-radius:50%;
-      background: radial-gradient(circle at 35% 30%, #fff 0%, #f2f2ff 20%, #dfe7ff 60%, #c7d2fe 100%);
-      filter: blur(0.2px);
-      animation: beat 1.6s ease-in-out infinite;
-      transform: translate(-50%,-50%);
-      opacity:.35;
-    }
-    @keyframes beat{
-      0%{ transform: translate(-50%,-50%) scale(1); }
-      30%{ transform: translate(-50%,-50%) scale(1.08); }
-      60%{ transform: translate(-50%,-50%) scale(1); }
-      100%{ transform: translate(-50%,-50%) scale(1); }
-    }
-    .quote{
-      border-left: 4px solid var(--accent);
-      padding-left:1rem; margin-top:.6rem; color:#1f2937;
-      font-weight:500; font-style: italic;
-    }
-    .small{font-size: clamp(13px,1.8vmin,16px)}
-    .credit{position:fixed; left:20px; bottom:20px; font-size:12px; color:#6b7280}
-    .kbd-help{display:inline-block; margin-left:.3em; opacity:.85}
-    .cover .super{font-size:clamp(14px,1.8vmin,16px); text-transform:uppercase; letter-spacing:.18em; color:var(--muted); font-weight:700}
-    .cover h1 span{color:var(--accent)}
-    .footnotes{opacity:.8; font-size: clamp(12px, 1.6vmin, 14px)}
-    @media (max-width: 900px){
-      .cols-2{grid-template-columns: 1fr}
-    }
+    .center{min-height:100svh;display:grid;place-items:center;padding:24px}
+    main{width:min(var(--maxw),92vw);text-align:center}
+    h1{margin:0;font-weight:900;font-size:clamp(40px,8vw,80px);letter-spacing:-.02em;color:var(--ink)}
+    .rule{margin:16px auto 28px;width:100%;height:var(--b);background:var(--ink)}
+    .sub{margin:0 0 18px 0;color:var(--muted);font-size:clamp(14px,2.4vw,16px)}
+    .search{margin:0 auto;width:100%;height:var(--h);border-bottom:var(--b) solid var(--ink);display:grid;grid-template-columns:1fr;align-items:end;background:#fff}
+    .search input{border:none;outline:none;background:transparent;font:inherit;color:var(--ink);font-size:clamp(16px,2.8vw,18px);padding:0 0 6px 0;height:calc(var(--h) - 2px);width:100%}
+    .msg{margin:12px 0 0 0;min-height:1.4em;font-size:14px}
+    .ok{color:#0b5d1d}.err{color:#9b1c1c}
+    footer{margin-top:48px;color:#9aa0a6;font-size:12px}
   </style>
 </head>
 <body>
-  <div class="progress" id="progress"></div>
-  <!-- Slide 1 - Cover -->
-  <section class="slide current cover" data-title="Couverture">
-    <div class="dot" aria-hidden="true"></div>
-    <div class="content">
-      <div class="super">Analyse d'œuvre - 3e</div>
-      <h1><span>Christian Boltanski</span> - Les Archives du Cœur</h1>
-      <p class="muted">Projet d'archive sonore mondiale (2008 - en cours) • Installation participative • Mémoire, absence, trace.</p>
-      <p class="small muted">Présenté par : <strong>Elouan VERGUIN</strong> - Classe 3e</p>
-    </div>
-  </section>
-  <!-- Slide 2 - L'idée -->
-  <section class="slide" data-title="L'idée">
-    <div class="content">
-      <h2>L’idée en une phrase</h2>
-      <p><strong>Conserver le battement de cœur de chacun</strong> comme une trace intime et universelle, pour former une <em>mémoire collective</em> accessible à tous.</p>
-      <div class="quote">« Plutôt que de regarder l’œuvre de l’extérieur, le visiteur en fait l’expérience de l’intérieur. »</div>
-      <p class="muted small">Thèmes : mémoire • disparition • identité • rituel • archive • participation du public.</p>
-    </div>
-  </section>
-  <!-- Slide 3 - Description formelle -->
-  <section class="slide" data-title="Description formelle">
-    <div class="content grid cols-2">
-      <div>
-        <h2>Description formelle</h2>
-        <ul>
-          <li><strong>Type</strong> : installation sonore participative et base de données.</li>
-          <li><strong>Début</strong> : 2008 - projet toujours vivant.</li>
-          <li><strong>Lieu principal</strong> : Teshima (Japon), Benesse Art Site Naoshima.</li>
-          <li><strong>Composants</strong> : cabine d’enregistrement, salle d’écoute, archive numérique.</li>
-          <li><strong>Matériaux</strong> : enregistrements, haut-parleurs, serveur, fiches.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Ce que vit un visiteur</h3>
-        <ul>
-          <li>Il enregistre son battement de cœur dans une cabine.</li>
-          <li>Il peut écouter le cœur d’une personne (par nom/date) dans une salle sombre.</li>
-          <li>Le son remplit l’espace.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-  <!-- Slide 5 - Contexte -->
-  <section class="slide" data-title="Contexte">
-    <div class="content grid cols-2">
-      <div>
-        <h2>Contexte et repères</h2>
-        <ul>
-          <li>Christian Boltanski (1944–2021).</li>
-          <li>Stations d’enregistrement temporaires.</li>
-          <li>Site de Teshima.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Pourquoi au Japon ?</h3>
-        <ul>
-          <li>Lieu retiré. (dimension fonctionnelle)</li>
-          <li>Rite & outil. (dimension symbolique)</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-  <!-- Slide 6 - Interprétations -->
-  <section class="slide" data-title="Interprétations">
-    <div class="content">
-      <h2>Interprétations possibles</h2>
-      <ul>
-        <li>Mémorial laïque.</li>
-        <li>Égalité radicale.</li>
-        <li>Trace sensible.</li>
-        <li>Musée du vivant.</li>
-      </ul>
-    </div>
-  </section>
-  <!-- Slide 8 - 3 plans -->
-  <section class="slide" data-title="3 plans">
-    <div class="content">
-      <h2>« Les Archives du Cœur » - 3 plans</h2>
-      <div class="grid cols-2" style="grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem;">
-        <figure style="margin:0">
-          <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/d3/d9/c3/caption.jpg?w=900&h=500&s=1" alt="Extérieur" style="width:100%; height:52vh; object-fit:cover;" />
-          <figcaption class="small muted" style="margin-top:.5rem">Extérieur - Bâtiment sur la plage de Teshima.</figcaption>
-        </figure>
-        <figure style="margin:0">
-          <img src="https://d3ff0u7gkaoc8q.cloudfront.net/files/ArtworkImages/d7ee36ee-819f-4812-965f-52b320917b8c/value01/c74db6d584dbb910b1c449e1b74b1e80_l.jpg" alt="Heart Room" style="width:100%; height:52vh; object-fit:cover;" />
-          <figcaption class="small muted" style="margin-top:.5rem">Cœur de l’installation - « Heart Room ».</figcaption>
-        </figure>
-        <figure style="margin:0">
-          <img src="https://benesse-artsite.jp/en/art/boltanski_kv_thumb_01_pc.jpg" alt="Salle d’écoute" style="width:100%; height:52vh; object-fit:cover;" />
-          <figcaption class="small muted" style="margin-top:.5rem">Salle d’écoute - postes face à la mer.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-  <!-- Slide 9 - Conclusion -->
-  <section class="slide" data-title="Conclusion">
-    <div class="content">
-      <h2>Conclusion</h2>
-      <ul>
-        <li>Une œuvre simple (un son) pour une idée immense (la mémoire de tous).</li>
-        <li>Le visiteur devient co‑auteur.</li>
-        <li>Un lieu de recueillement autant qu’une base de données.</li>
-      </ul>
-      <p class="muted small">-<a href="https://benesse-artsite.jp/en/art/boltanski.html" target="_blank" rel="noopener">Benesse Art Site Naoshima (Teshima)</a> • <a href="https://mediation.centrepompidou.fr/education/ressources/ENS-boltanski_en/ENS-Boltanski_en.htm" target="_blank" rel="noopener">Dossiers du Centre Pompidou</a> • <a href="https://www.franceinter.fr/culture/christian-boltanski" target="_blank" rel="noopener">France Inter (parcours de Boltanski)</a>.</p>
-    </div>
-      </section>
-      <div class="badge">Appuie sur <span class="kbd">Espace</span><span class="kbd-help"> (⇧ + Espace pour revenir)</span></div>
-  <div class="credit">Elouan VERGUIN, 3e, Rene Caillie</div>
+  <div class="center">
+    <main>
+      <h1>Elouan VERGUIN</h1>
+      <div class="rule" aria-hidden="true"></div>
+      <p class="sub">Entrez une matière pour accéder à la page correspondante.</p>
+
+      <form class="search" role="search" aria-label="Recherche de matière" onsubmit="submitSearch(event)">
+        <input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Matière" aria-label="Rechercher une matière">
+      </form>
+
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+      <footer>rcaillié - 2025, 2026</footer>
+    </main>
+  </div>
 
   <script>
-    (function(){
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const progress = document.getElementById('progress');
-      let i = 0;
-      function show(idx){
-        if(idx < 0 || idx >= slides.length) return;
-        slides[i].classList.remove('current');
-        i = idx;
-        slides[i].classList.add('current');
-        progress.style.width = ((i+1)/slides.length*100).toFixed(2) + '%';
-        document.title = slides[i].dataset.title + ' - Boltanski';
-      }
-      function next(){ if(i < slides.length-1) show(i+1); }
-      function prev(){ if(i > 0) show(i-1); }
-      // keyboard: only Space to advance; Shift+Space to go back
-      window.addEventListener('keydown', (e)=>{
-        if(e.code === 'Space'){
-          e.preventDefault();
-          if(e.shiftKey) prev(); else next();
-        }
-      });
-      // click/tap silently ignored to respect "seulement avec espace"
-      // start
-      show(0);
-    })();
+    function norm(s){
+      return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ');
+    }
+    const subjects=[
+      {slug:'art plastique',url:'apla.html',synonyms:['art','arts','art plastique','arts plastiques','ap','artspla','arts-plastiques','artsplastiques','arts visuels']},
+      {slug:'maths',url:'maths.html',synonyms:['math','maths','mathematiques','mathématiques','algebre','algèbre','geometrie','géométrie','calcul']},
+      {slug:'francais',url:'francais.html',synonyms:['francais','français','fr','lecture','ecriture','écriture','grammaire','orthographe']},
+      {slug:'histoire geo',url:'hg.html',synonyms:['histoire','geo','géographie','histoire geo','histoire-geographie','histoire géographie','hg','h-g']},
+      {slug:'svt',url:'svt.html',synonyms:['svt','sciences de la vie et de la terre','sciences','biologie','terre']},
+      {slug:'physique chimie',url:'physique-chimie.html',synonyms:['physique','chimie','pc','physique chimie','physique-chimie']},
+      {slug:'anglais',url:'anglais.html',synonyms:['anglais','english','eng']},
+      {slug:'espagnol',url:'espagnol.html',synonyms:['espagnol','esp','es']},
+      {slug:'technologie',url:'technologie.html',synonyms:['technologie','techno','tech']},
+      {slug:'musique',url:'musique.html',synonyms:['musique','education musicale','éducation musicale','ed musique']}
+    ];
+    const index=new Map();for(const s of subjects){index.set(norm(s.slug),s);for(const syn of s.synonyms)index.set(norm(syn),s);}
+    function dld(a,b){const A=a.length,B=b.length;if(!A)return B;if(!B)return A;const da=Array.from({length:A+1},(_,i)=>i);const db=new Array(B+1);for(let j=1;j<=B;j++){db[0]=j;let prev=j-1;for(let i=1;i<=A;i++){const tmp=db[i];const cost=a[i-1]===b[j-1]?0:1;db[i]=Math.min(db[i-1]+1,da[i]+1,prev+cost);if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1]){db[i]=Math.min(db[i],da[i-2]+1)}prev=tmp}for(let i=0;i<=A;i++)da[i]=db[i]}return da[A]}
+    function resolve(query){
+      const n=norm(query);if(!n)return null;
+      if(index.has(n))return index.get(n);
+      for(const s of subjects){const sl=norm(s.slug);if(sl.includes(n)||n.includes(sl))return s;for(const syn of s.synonyms){const ns=norm(syn);if(ns.includes(n)||n.includes(ns))return s}}
+      let best=null,bestScore=Infinity;const keys=[];for(const s of subjects){keys.push([s,norm(s.slug)]);for(const syn of s.synonyms)keys.push([s,norm(syn)])}
+      for(const [s,key]of keys){const dist=dld(n,key);if(dist<bestScore){best=s;bestScore=dist}}
+      const L=n.length,th=L<=4?1:(L<=8?2:3);return bestScore<=th?best:null;
+    }
+    function submitSearch(e){
+      e.preventDefault();
+      const field=document.getElementById('q'),msg=document.getElementById('msg');
+      const res=resolve(field.value);
+      if(res){msg.className='msg ok';msg.textContent='Ouverture : '+res.slug;setTimeout(()=>{window.location.href=res.url},100)}
+      else{msg.className='msg err';msg.textContent='Matière introuvable.'}
+    }
+    document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter')submitSearch(e)});
   </script>
 </body>
 </html>
