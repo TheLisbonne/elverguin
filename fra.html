@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rouget de Lisle - La Marseillaise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#faf7f2;
+      --ink:#0f172a;
+      --accent:#b91c1c;
+      --muted:#6b7280;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      background:var(--bg);
+      color:var(--ink);
+      overflow:hidden;
+    }
+    .slide{
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      padding:8vmin;
+      opacity:0; transform:translateY(30px) scale(.98);
+      transition:opacity .6s ease, transform .6s ease;
+      pointer-events:none;
+    }
+    .slide.current{opacity:1; transform:none; pointer-events:auto;}
+    .slide .content{max-width:1100px; width:100%;}
+    h1,h2,h3{margin:.2em 0 .4em 0; line-height:1.08}
+    h1{font-size:clamp(36px,7.2vmin,86px); font-weight:800; letter-spacing:-0.02em}
+    h2{font-size:clamp(28px,4.6vmin,54px); font-weight:800; color:var(--accent)}
+    h3{font-size:clamp(20px,3.4vmin,32px); font-weight:700}
+    p{font-size:clamp(16px,2.2vmin,20px); line-height:1.6; color:var(--ink)}
+    .muted{color:var(--muted)}
+    ul{font-size:clamp(16px,2.2vmin,20px); line-height:1.6; margin:.6em 0 0 0; padding-left:1.2em}
+    li + li{margin-top:.4em}
+    .grid{display:grid; gap:1.4rem}
+    .cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .kbd{display:inline-block; padding:.18em .45em; border-radius:.5em; border:1px solid #e5e7eb; background:#fff; font-weight:600}
+    .badge{
+      position:fixed; bottom:20px; right:20px;
+      font-size:clamp(12px,1.8vmin,14px);
+      color:#111; background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
+      border:1px solid #eee; border-radius:12px; padding:.5em .8em;
+      box-shadow:0 10px 25px rgba(16,24,40,.08);
+    }
+    .progress{
+      position:fixed; top:0; left:0; height:6px; background:linear-gradient(90deg,var(--accent),#f87171);
+      width:0%; transition:width .35s ease;
+      box-shadow:0 0 0 1px rgba(0,0,0,.02) inset;
+    }
+    .quote{
+      border-left:4px solid var(--accent);
+      padding-left:1rem; margin-top:.6rem; color:#1f2937;
+      font-weight:500; font-style:italic;
+    }
+    .small{font-size:clamp(13px,1.8vmin,16px)}
+    .credit{position:fixed; left:20px; bottom:20px; font-size:12px; color:#6b7280}
+    .kbd-help{display:inline-block; margin-left:.3em; opacity:.85}
+    .cover .super{font-size:clamp(14px,1.8vmin,16px); text-transform:uppercase; letter-spacing:.18em; color:var(--muted); font-weight:700}
+    .cover h1 span{color:var(--accent)}
+    .exit{
+      position:fixed; top:12px; right:12px;
+      z-index:9999;
+      background:#e11d48; color:#fff; text-decoration:none; font-weight:700;
+      padding:.42rem .7rem; border-radius:8px; border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 6px 18px rgba(225,29,72,.25);
+      font-size:14px;
+    }
+    .exit:focus{outline:3px solid rgba(225,29,72,.35); outline-offset:2px}
+    @media (max-width:900px){ .cols-2{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <a class="exit" href="index.html" title="Quitter">Quitter</a>
+
+  <section class="slide current cover" data-title="Couverture">
+    <div class="content">
+      <div class="super">Analyse d'œuvre - 3e</div>
+      <h1><span>Rouget de Lisle</span> - La Marseillaise</h1>
+      <p class="muted">Chanson patriotique révolutionnaire • Hymne national français • 1792.</p>
+      <p class="small muted">Présenté par : <strong>Elouan VERGUIN</strong> - Classe 3e</p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="L'idée">
+    <div class="content">
+      <h2>L’idée en une phrase</h2>
+      <p><strong>Un appel au combat pour défendre la liberté et la patrie</strong>, face aux menaces extérieures et à la tyrannie.</p>
+      <div class="quote">« Aux armes, citoyens ! Formez vos bataillons ! »</div>
+      <p class="muted small">Thèmes : liberté • patrie • guerre • unité nationale • résistance.</p>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Description formelle">
+    <div class="content grid cols-2">
+      <div>
+        <h2>Description formelle</h2>
+        <ul>
+          <li><strong>Auteur</strong> : Claude Joseph Rouget de Lisle.</li>
+          <li><strong>Date</strong> : avril 1792, Strasbourg.</li>
+          <li><strong>Nature</strong> : chant révolutionnaire → hymne national (depuis 1879).</li>
+          <li><strong>Contexte</strong> : guerre de la France révolutionnaire contre l’Autriche.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Caractéristiques</h3>
+        <ul>
+          <li>Langage martial, énergique et direct.</li>
+          <li>Appel à la mobilisation collective.</li>
+          <li>Musique entraînante, facile à chanter en groupe.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Démarche">
+    <div class="content">
+      <h2>Pourquoi engagée ?</h2>
+      <ul>
+        <li>Défend une <strong>cause politique</strong> : la liberté et la défense de la patrie.</li>
+        <li>Critique la <strong>tyrannie et l’oppression</strong>.</li>
+        <li>Rassemble les citoyens dans un <strong>même élan patriotique</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Contexte">
+    <div class="content grid cols-2">
+      <div>
+        <h2>Contexte historique</h2>
+        <ul>
+          <li>1792 : déclaration de guerre à l’Autriche.</li>
+          <li>Peurs d’invasion étrangère et de trahisons intérieures.</li>
+          <li>La Révolution française doit se défendre pour survivre.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Son évolution</h3>
+        <ul>
+          <li>Adoptée comme hymne révolutionnaire.</li>
+          <li>Devenue hymne national officiel en 1879.</li>
+          <li>Encore chantée aujourd’hui dans les cérémonies.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Interprétations">
+    <div class="content">
+      <h2>Interprétations possibles</h2>
+      <ul>
+        <li><strong>Hymne de combat</strong> : motiver les soldats et citoyens à défendre la patrie.</li>
+        <li><strong>Symbole de liberté</strong> : face à la tyrannie et aux menaces.</li>
+        <li><strong>Héritage républicain</strong> : chant identitaire, porteur de valeurs universelles.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="slide" data-title="Conclusion">
+    <div class="content">
+      <h2>Conclusion</h2>
+      <ul>
+        <li>Une chanson née dans la Révolution qui reste <strong>un symbole national</strong>.</li>
+        <li>Elle exprime des <strong>valeurs universelles</strong> : liberté, résistance, unité.</li>
+        <li>La Marseillaise : un hymne toujours <strong>engagé</strong>, deux siècles après sa création.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="badge">Appuie sur <span class="kbd">Espace</span><span class="kbd-help"> (⇧ + Espace pour revenir)</span></div>
+  <div class="credit">Elouan VERGUIN, 3e, Rene Caillie</div>
+
+  <script>
+    (function(){
+      const slides=Array.from(document.querySelectorAll('.slide'));
+      const progress=document.getElementById('progress');
+      let i=0;
+      function show(idx){
+        if(idx<0||idx>=slides.length) return;
+        slides[i].classList.remove('current');
+        i=idx;
+        slides[i].classList.add('current');
+        progress.style.width=((i+1)/slides.length*100).toFixed(2)+'%';
+        document.title=slides[i].dataset.title+' - La Marseillaise';
+      }
+      function next(){ if(i<slides.length-1) show(i+1); }
+      function prev(){ if(i>0) show(i-1); }
+      window.addEventListener('keydown',(e)=>{
+        if(e.code==='Space'){
+          e.preventDefault();
+          if(e.shiftKey) prev(); else next();
+        }
+      });
+      show(0);
+    })();
+  </script>
+</body>
+</html>
