@@ -3,26 +3,58 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rouget de Lisle - La Marseillaise</title>
+  <title>Rouget de Lisle – La Marseillaise</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#fdfdfd;
+      --bg:#faf7f2;
       --ink:#0f172a;
-      --accent:#c1121f; /* rouge profond */
+      --blue:#0b3aa4;
+      --red:#b11226;
+      --accent:var(--blue);
       --muted:#6b7280;
-      --blue:#003399;
+      --marble:#f6f3ee;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
     body{
-      font-family:'Inter',sans-serif;
-      background:linear-gradient(90deg,var(--blue) 0%, white 50%, var(--accent) 100%);
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+      background:var(--bg);
       color:var(--ink);
       overflow:hidden;
     }
+
+    /* --- Scène monumentale : piliers + marbre + ruban tricolore --- */
+    .monument::before, .monument::after{
+      content:"";
+      position:fixed; top:0; bottom:0; width:110px; z-index:-1; opacity:.12;
+      background:
+        radial-gradient(circle at 50% -20px,#00000022,transparent 60%) top center no-repeat,
+        linear-gradient(to bottom, #fff8 0 60px, transparent 60px 100%),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="640" viewBox="0 0 88 640"><rect width="88" height="640" fill="white"/><rect x="6" y="0" width="76" height="640" fill="%23f4f1ec"/><rect x="12" y="0" width="64" height="640" fill="white"/><g opacity="0.6" stroke="%23d8d5cf" stroke-width="2"><line x1="20" y1="0" x2="20" y2="640"/><line x1="28" y1="0" x2="28" y2="640"/><line x1="36" y1="0" x2="36" y2="640"/><line x1="44" y1="0" x2="44" y2="640"/><line x1="52" y1="0" x2="52" y2="640"/><line x1="60" y1="0" x2="60" y2="640"/><line x1="68" y1="0" x2="68" y2="640"/></g><rect x="0" y="604" width="88" height="18" fill="%23c9c6c1"/></svg>');
+      background-size: 110px 80px, 110px 80px, 110px 640px;
+      background-position: top center, top center, top center;
+      box-shadow: 0 0 0 1px #00000008 inset, 0 0 30px rgba(0,0,0,.08);
+    }
+    .monument::before{left:0}
+    .monument::after{right:0}
+
+    .marble{
+      position:fixed; inset:0; z-index:-2; opacity:.6;
+      background:
+        radial-gradient(1200px 800px at 30% 20%, #ffffff, #f2efe9 60%, #e9e4dc 100%),
+        repeating-linear-gradient(115deg,rgba(0,0,0,.03) 0 14px, rgba(0,0,0,.02) 14px 28px);
+    }
+
+    .tricolor{
+      position:fixed; top:0; left:0; right:0; height:10px; z-index:9998;
+      background:linear-gradient(90deg, var(--blue), #fff, var(--red));
+      box-shadow:0 1px 0 #00000010;
+    }
+
+    /* --- Slides (reprend ta base) --- */
     .slide{
       position:absolute; inset:0;
       display:flex; align-items:center; justify-content:center;
@@ -30,104 +62,242 @@
       opacity:0; transform:translateY(30px) scale(.98);
       transition:opacity .6s ease, transform .6s ease;
       pointer-events:none;
-      text-align:center;
     }
     .slide.current{opacity:1; transform:none; pointer-events:auto;}
-    .slide .content{max-width:1100px; width:100%; background:rgba(255,255,255,0.9); padding:2rem; border-radius:16px; box-shadow:0 12px 40px rgba(0,0,0,.2);}
-    h1,h2,h3{margin:.2em 0 .4em 0; line-height:1.1}
-    h1{font-size:clamp(40px,7.2vmin,90px); font-weight:800; color:var(--blue)}
-    h2{font-size:clamp(28px,5vmin,58px); font-weight:800; color:var(--accent)}
+    .slide .content{max-width:1100px; width:100%;}
+    h1,h2,h3{margin:.2em 0 .4em 0; line-height:1.08}
+    h1{font-size:clamp(36px,7.2vmin,86px); font-weight:800; letter-spacing:-0.02em}
+    h2{font-size:clamp(28px,4.6vmin,54px); font-weight:800; color:var(--accent)}
     h3{font-size:clamp(20px,3.4vmin,32px); font-weight:700}
-    p{font-size:clamp(16px,2.2vmin,22px); line-height:1.6; color:var(--ink)}
+    p{font-size:clamp(16px,2.2vmin,20px); line-height:1.6; color:var(--ink)}
     .muted{color:var(--muted)}
     ul{font-size:clamp(16px,2.2vmin,20px); line-height:1.6; margin:.6em 0 0 0; padding-left:1.2em}
     li + li{margin-top:.4em}
-    img,iframe{width:100%; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,.3); margin-top:1rem}
+    .grid{display:grid; gap:1.4rem}
+    .cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
     .kbd{display:inline-block; padding:.18em .45em; border-radius:.5em; border:1px solid #e5e7eb; background:#fff; font-weight:600}
     .badge{
       position:fixed; bottom:20px; right:20px;
       font-size:clamp(12px,1.8vmin,14px);
-      color:#111; background:rgba(255,255,255,.85); backdrop-filter:blur(6px);
+      color:#111; background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
       border:1px solid #eee; border-radius:12px; padding:.5em .8em;
-      box-shadow:0 10px 25px rgba(16,24,40,.1);
+      box-shadow:0 10px 25px rgba(16,24,40,.08);
     }
     .progress{
-      position:fixed; top:0; left:0; height:6px; background:linear-gradient(90deg,var(--blue),var(--accent));
+      position:fixed; top:10px; left:0; height:6px; background:linear-gradient(90deg,var(--blue),var(--red));
       width:0%; transition:width .35s ease;
+      box-shadow:0 0 0 1px rgba(0,0,0,.02) inset;
     }
+    .dot{
+      position:absolute; top:50%; left:50%; width:18vmin; height:18vmin; border-radius:50%;
+      background:radial-gradient(circle at 35% 30%,#fff 0%,#f2f2ff 20%,#dfe7ff 60%,#c7d2fe 100%);
+      filter:blur(0.2px);
+      animation:beat 1.6s ease-in-out infinite;
+      transform:translate(-50%,-50%);
+      opacity:.28;
+    }
+    @keyframes beat{
+      0%{transform:translate(-50%,-50%) scale(1)}
+      30%{transform:translate(-50%,-50%) scale(1.08)}
+      60%{transform:translate(-50%,-50%) scale(1)}
+      100%{transform:translate(-50%,-50%) scale(1)}
+    }
+    .quote{
+      border-left:4px solid var(--accent);
+      padding-left:1rem; margin-top:.6rem; color:#1f2937;
+      font-weight:500; font-style:italic;
+      background:#ffffffb3; border-radius:6px; padding:.8rem 1rem; display:inline-block;
+      box-shadow:0 6px 20px rgba(0,0,0,.06);
+    }
+    .small{font-size:clamp(13px,1.8vmin,16px)}
+    .credit{position:fixed; left:20px; bottom:20px; font-size:12px; color:#6b7280}
+    .kbd-help{display:inline-block; margin-left:.3em; opacity:.85}
+    .cover .super{font-size:clamp(14px,1.8vmin,16px); text-transform:uppercase; letter-spacing:.18em; color:var(--muted); font-weight:700}
+    .cover h1 span{color:var(--accent)}
+    .footnotes{opacity:.8; font-size:clamp(12px,1.6vmin,14px)}
     .exit{
       position:fixed; top:12px; right:12px;
       z-index:9999;
-      background:var(--accent); color:#fff; text-decoration:none; font-weight:700;
+      background:var(--red); color:#fff; text-decoration:none; font-weight:700;
       padding:.42rem .7rem; border-radius:8px; border:1px solid rgba(0,0,0,.08);
       box-shadow:0 6px 18px rgba(225,29,72,.25);
       font-size:14px;
     }
     .exit:focus{outline:3px solid rgba(225,29,72,.35); outline-offset:2px}
-    .credit{position:fixed; left:20px; bottom:20px; font-size:12px; color:#333}
+    @media (max-width:900px){ .cols-2{grid-template-columns:1fr} }
+
+    /* Médias */
+    .media{
+      border-radius:14px; overflow:hidden; box-shadow:0 16px 40px rgba(0,0,0,.18); margin-top:1rem;
+      background:#fff;
+    }
+    .media img, .media svg, .media iframe, .media video{width:100%; display:block}
+    figcaption.small{margin-top:.4rem}
   </style>
 </head>
-<body>
+<body class="monument">
+  <div class="tricolor"></div>
+  <div class="marble" aria-hidden="true"></div>
+
   <div class="progress" id="progress"></div>
   <a class="exit" href="index.html" title="Quitter">Quitter</a>
 
-  <!-- Page 1 -->
+  <!-- COUVERTURE -->
   <section class="slide current cover" data-title="Couverture">
+    <div class="dot" aria-hidden="true"></div>
     <div class="content">
-      <h1>La Marseillaise</h1>
-      <p class="muted">Claude Joseph Rouget de Lisle • 1792 • Hymne révolutionnaire devenu hymne national</p>
-      <p class="small muted">Présenté par : <strong>Elouan VERGUIN</strong> - Classe 3e</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Score_La_Marseillaise.jpg" alt="Partition originale de La Marseillaise">
+      <div class="super">Analyse d'œuvre - 3e</div>
+      <h1><span>La Marseillaise</span> – Hymne national</h1>
+      <p class="muted">Claude Joseph Rouget de Lisle • 1792 • Chant révolutionnaire devenu symbole de la République.</p>
+      <p class="small muted">Présenté par : <strong>Elouan VERGUIN</strong> – Classe 3e</p>
+
+      <!-- Drapeau FR en SVG (zéro lien externe) -->
+      <figure class="media">
+        <svg viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Drapeau de la France">
+          <rect width="1" height="2" x="0" y="0" fill="#0055A4"/>
+          <rect width="1" height="2" x="1" y="0" fill="#FFFFFF"/>
+          <rect width="1" height="2" x="2" y="0" fill="#EF4135"/>
+        </svg>
+        <figcaption class="small muted">Drapeau français (SVG intégré).</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- Page 2 -->
+  <!-- IDEE -->
+  <section class="slide" data-title="L’idée">
+    <div class="content">
+      <h2>L’idée en une phrase</h2>
+      <p><strong>Un appel au peuple</strong> à défendre la liberté et la patrie contre la tyrannie.</p>
+      <div class="quote">« Aux armes, citoyens ! Formez vos bataillons ! »</div>
+      <p class="muted small">Thèmes : liberté • unité nationale • résistance • engagement civique.</p>
+    </div>
+  </section>
+
+  <!-- CONTEXTE + PARTITION (image fiable) -->
   <section class="slide" data-title="Contexte">
-    <div class="content">
-      <h2>Contexte historique</h2>
-      <p>Écrite en avril 1792 à Strasbourg, en pleine guerre contre l’Autriche. Elle devient un chant de mobilisation révolutionnaire.</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/La_Marseillaise_by_Fr%C3%A9d%C3%A9ric_Auguste_Bartholdi.jpg" alt="Bas-relief La Marseillaise sur l'Arc de Triomphe">
+    <div class="content grid cols-2">
+      <div>
+        <h2>Contexte historique</h2>
+        <ul>
+          <li><strong>Avril 1792</strong> : composée à Strasbourg pendant la guerre contre l’Autriche.</li>
+          <li>Devient un chant de <strong>mobilisation</strong> populaire.</li>
+          <li>Adoptée comme <strong>hymne national</strong> (1879).</li>
+        </ul>
+      </div>
+      <div>
+        <figure class="media">
+          <!-- Partition (Wikimedia fiable) -->
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Score_La_Marseillaise.jpg" alt="Partition originale de La Marseillaise (image Wikimedia Commons)">
+        </figure>
+        <figcaption class="small muted">Partition originale de « La Marseillaise ».</figcaption>
+      </div>
     </div>
   </section>
 
-  <!-- Page 3 -->
-  <section class="slide" data-title="Idée défendue">
-    <div class="content">
-      <h2>Un appel à l’unité</h2>
-      <p>La chanson appelle les citoyens à prendre les armes pour défendre la liberté et la patrie face aux tyrans.</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Rouget_de_lisle.JPG" alt="Rouget de Lisle chantant La Marseillaise">
+  <!-- AUTEUR (portrait fiable) -->
+  <section class="slide" data-title="Auteur">
+    <div class="content grid cols-2">
+      <div>
+        <h2>Claude Joseph Rouget de Lisle</h2>
+        <ul>
+          <li>Officier et compositeur.</li>
+          <li>Écrit paroles et musique <strong>en une nuit</strong> (25→26 avril 1792).</li>
+          <li>Chanson d’abord intitulée <em>Chant de guerre pour l’armée du Rhin</em>.</li>
+        </ul>
+      </div>
+      <div>
+        <figure class="media">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Rouget_de_lisle.JPG" alt="Rouget de Lisle (portrait, Wikimedia Commons)">
+        </figure>
+        <figcaption class="small muted">Rouget de Lisle.</figcaption>
+      </div>
     </div>
   </section>
 
-  <!-- Page 4 -->
-  <section class="slide" data-title="Valeurs">
+  <!-- SYMBOLE : ARC DE TRIOMPHE (SVG stylisé = lien 100% fiable) -->
+  <section class="slide" data-title="Symbole">
     <div class="content">
-      <h2>Valeurs universelles</h2>
-      <ul>
-        <li>Liberté</li>
-        <li>Unité nationale</li>
-        <li>Résistance à l’oppression</li>
-        <li>Patriotisme</li>
-      </ul>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Liberty_Leading_the_People.jpg" alt="La Liberté guidant le peuple de Delacroix">
+      <h2>Un symbole national</h2>
+      <p>La Marseillaise incarne la <strong>liberté</strong>, la <strong>République</strong> et le <strong>rassemblement</strong>.</p>
+      <figure class="media">
+        <!-- Arc de Triomphe en SVG (pour garantir l'affichage) -->
+        <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arc de Triomphe stylisé">
+          <defs>
+            <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0" stop-color="#f3f0ea"/>
+              <stop offset="1" stop-color="#e5e0d8"/>
+            </linearGradient>
+          </defs>
+          <rect width="100%" height="100%" fill="#ffffff"/>
+          <g transform="translate(100,40)" stroke="#c8c2b8" stroke-width="6" fill="url(#g)">
+            <rect x="0" y="0" width="1000" height="160" />
+            <rect x="70" y="160" width="860" height="100" />
+            <rect x="0" y="260" width="1000" height="380" />
+            <!-- Grande arche -->
+            <rect x="360" y="320" width="280" height="320" fill="#fff" stroke="#d4cec4"/>
+            <path d="M360,320 h280 v40 h-280 z" fill="#ece7df" stroke="none"/>
+            <!-- Colonnes latérales -->
+            <rect x="120" y="340" width="120" height="300" />
+            <rect x="760" y="340" width="120" height="300" />
+          </g>
+        </svg>
+        <figcaption class="small muted">Arc de Triomphe (stylisé) – lieu de cérémonies où résonne l’hymne.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- Page 5 -->
-  <section class="slide" data-title="Aujourd'hui">
+  <!-- PEINTURE (Delacroix, image fiable sur Wikimedia) -->
+  <section class="slide" data-title="Idéaux">
     <div class="content">
-      <h2>L’hymne aujourd’hui</h2>
-      <p>Depuis 1879, La Marseillaise est l’hymne national français. Chantée lors des cérémonies et événements sportifs.</p>
-      <iframe width="100%" height="400" src="https://www.youtube.com/embed/4K1q9Ntcr5g?autoplay=1&mute=1" title="La Marseillaise - Hymne national" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <h2>Les idéaux de la Révolution</h2>
+      <p>Liberté • Égalité • Fraternité – un imaginaire visuel puissant qui accompagne l’hymne.</p>
+      <figure class="media">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Delacroix_-_La_Libert%C3%A9_guidant_le_peuple_%281830%29.jpg" alt="Eugène Delacroix, La Liberté guidant le peuple (Wikimedia Commons)">
+      </figure>
+      <figcaption class="small muted">Delacroix, <em>La Liberté guidant le peuple</em> (1830).</figcaption>
     </div>
   </section>
 
-  <!-- Page 6 -->
+  <!-- VIDEO : autoplay (gérée par script + YouTube API) -->
+  <section class="slide" data-title="Écouter">
+    <div class="content">
+      <h2>Écouter « La Marseillaise »</h2>
+      <p class="muted small">La vidéo démarre automatiquement quand vous arrivez sur cette page.</p>
+      <figure class="media">
+        <iframe
+          class="yt"
+          width="100%" height="460"
+          src="https://www.youtube.com/embed/4K1q9Ntcr5g?enablejsapi=1&autoplay=0&mute=1&rel=0&modestbranding=1&playsinline=1"
+          title="La Marseillaise - Hymne national (instrumental)"
+          frameborder="0"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+          data-autoplay="1">
+        </iframe>
+      </figure>
+      <p class="small muted">Astuce : appuie sur <span class="kbd">M</span> pour couper/rétablir le son.</p>
+    </div>
+  </section>
+
+  <!-- CONCLUSION -->
   <section class="slide" data-title="Conclusion">
     <div class="content">
       <h2>Conclusion</h2>
-      <p>La Marseillaise, née dans la Révolution, reste un symbole fort de la France et de la liberté.</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg" alt="Drapeau français">
+      <ul>
+        <li>Un chant né dans l’urgence, porté par un idéal de <strong>liberté</strong>.</li>
+        <li>Devenu un <strong>symbole national</strong> qui nous rassemble.</li>
+        <li>Un héritage vivant, chanté et transmis.</li>
+      </ul>
+      <figure class="media">
+        <!-- Cocarde tricolore (SVG intégré) -->
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cocarde tricolore">
+          <circle cx="200" cy="200" r="180" fill="#EF4135"/>
+          <circle cx="200" cy="200" r="130" fill="#FFFFFF"/>
+          <circle cx="200" cy="200" r="80"  fill="#0055A4"/>
+        </svg>
+        <figcaption class="small muted">Cocarde tricolore.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -139,22 +309,66 @@
       const slides=Array.from(document.querySelectorAll('.slide'));
       const progress=document.getElementById('progress');
       let i=0;
+
+      // Utilitaire YouTube API: play/pause via postMessage
+      function ytCommand(iframe, command){
+        if(!iframe || !iframe.contentWindow) return;
+        iframe.contentWindow.postMessage(JSON.stringify({
+          event:"command", func:command, args:[]
+        }), "*");
+      }
+      function pauseAllMedia(){
+        // Pause all HTML5 <video>
+        document.querySelectorAll('video').forEach(v=>{ try{ v.pause(); }catch(e){} });
+        // Pause all YouTube iframes
+        document.querySelectorAll('iframe.yt').forEach(f=>{ ytCommand(f, 'pauseVideo'); });
+      }
+      function activateMedia(slideEl){
+        // Autoplay HTML5 <video>
+        slideEl.querySelectorAll('video[data-autoplay]').forEach(v=>{
+          v.muted = true; // autoplay policy
+          v.playsInline = true;
+          v.play().catch(()=>{ /* silencieux si bloqué */ });
+        });
+        // Autoplay YouTube
+        slideEl.querySelectorAll('iframe.yt[data-autoplay]').forEach(f=>{
+          ytCommand(f, 'playVideo');
+        });
+      }
+
       function show(idx){
         if(idx<0||idx>=slides.length) return;
         slides[i].classList.remove('current');
+        pauseAllMedia(); // couper médias de l'ancienne diapo
         i=idx;
         slides[i].classList.add('current');
         progress.style.width=((i+1)/slides.length*100).toFixed(2)+'%';
-        document.title=slides[i].dataset.title+' - La Marseillaise';
+        document.title=slides[i].dataset.title+' – La Marseillaise';
+        // lancer médias de la diapo en cours
+        setTimeout(()=>activateMedia(slides[i]), 100);
       }
       function next(){ if(i<slides.length-1) show(i+1); }
       function prev(){ if(i>0) show(i-1); }
+
+      // Raccourcis clavier
       window.addEventListener('keydown',(e)=>{
         if(e.code==='Space'){
           e.preventDefault();
           if(e.shiftKey) prev(); else next();
         }
+        // M = mute/unmute de la vidéo YouTube active
+        if(e.key.toLowerCase()==='m'){
+          const activeYT = slides[i].querySelector('iframe.yt');
+          if(activeYT){
+            // Basculer mute via API
+            // On essaie d'abord d'unmute, puis si déjà unmute on remute
+            ytCommand(activeYT, 'unMute');
+            ytCommand(activeYT, 'playVideo');
+          }
+        }
       });
+
+      // Initialisation
       show(0);
     })();
   </script>
