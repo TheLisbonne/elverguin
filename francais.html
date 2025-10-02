@@ -15,7 +15,6 @@
       --red:#b11226;
       --accent:var(--blue);
       --muted:#6b7280;
-      --marble:#f6f3ee;
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0}
@@ -26,27 +25,20 @@
       overflow:hidden;
     }
 
-    /* --- Scène monumentale : piliers + marbre + ruban tricolore --- */
+    /* --- Décor monumental (piliers en arrière-plan, plus visibles) --- */
     .monument::before, .monument::after{
       content:"";
-      position:fixed; top:0; bottom:0; width:110px; z-index:-1; opacity:.12;
+      position:fixed; top:0; bottom:0; width:120px; z-index:-3; opacity:.15; /* + visible */
       background:
         radial-gradient(circle at 50% -20px,#00000022,transparent 60%) top center no-repeat,
         linear-gradient(to bottom, #fff8 0 60px, transparent 60px 100%),
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="640" viewBox="0 0 88 640"><rect width="88" height="640" fill="white"/><rect x="6" y="0" width="76" height="640" fill="%23f4f1ec"/><rect x="12" y="0" width="64" height="640" fill="white"/><g opacity="0.6" stroke="%23d8d5cf" stroke-width="2"><line x1="20" y1="0" x2="20" y2="640"/><line x1="28" y1="0" x2="28" y2="640"/><line x1="36" y1="0" x2="36" y2="640"/><line x1="44" y1="0" x2="44" y2="640"/><line x1="52" y1="0" x2="52" y2="640"/><line x1="60" y1="0" x2="60" y2="640"/><line x1="68" y1="0" x2="68" y2="640"/></g><rect x="0" y="604" width="88" height="18" fill="%23c9c6c1"/></svg>');
-      background-size: 110px 80px, 110px 80px, 110px 640px;
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="800" viewBox="0 0 96 800"><rect width="96" height="800" fill="white"/><rect x="6" y="0" width="84" height="800" fill="%23f4f1ec"/><rect x="12" y="0" width="72" height="800" fill="white"/><g opacity="0.6" stroke="%23d8d5cf" stroke-width="2"><line x1="20" y1="0" x2="20" y2="800"/><line x1="28" y1="0" x2="28" y2="800"/><line x1="36" y1="0" x2="36" y2="800"/><line x1="44" y1="0" x2="44" y2="800"/><line x1="52" y1="0" x2="52" y2="800"/><line x1="60" y1="0" x2="60" y2="800"/><line x1="68" y1="0" x2="68" y2="800"/></g><rect x="0" y="756" width="96" height="20" fill="%23c9c6c1"/></svg>');
+      background-size: 120px 96px, 120px 96px, 120px 800px;
       background-position: top center, top center, top center;
-      box-shadow: 0 0 0 1px #00000008 inset, 0 0 30px rgba(0,0,0,.08);
+      filter: saturate(.95) contrast(.98);
     }
     .monument::before{left:0}
     .monument::after{right:0}
-
-    .marble{
-      position:fixed; inset:0; z-index:-2; opacity:.6;
-      background:
-        radial-gradient(1200px 800px at 30% 20%, #ffffff, #f2efe9 60%, #e9e4dc 100%),
-        repeating-linear-gradient(115deg,rgba(0,0,0,.03) 0 14px, rgba(0,0,0,.02) 14px 28px);
-    }
 
     .tricolor{
       position:fixed; top:0; left:0; right:0; height:10px; z-index:9998;
@@ -54,7 +46,7 @@
       box-shadow:0 1px 0 #00000010;
     }
 
-    /* --- Slides (reprend ta base) --- */
+    /* --- Slides (base conservée) --- */
     .slide{
       position:absolute; inset:0;
       display:flex; align-items:center; justify-content:center;
@@ -64,7 +56,7 @@
       pointer-events:none;
     }
     .slide.current{opacity:1; transform:none; pointer-events:auto;}
-    .slide .content{max-width:1100px; width:100%;}
+    .slide .content{max-width:1100px; width:100%; position:relative; z-index:1}
     h1,h2,h3{margin:.2em 0 .4em 0; line-height:1.08}
     h1{font-size:clamp(36px,7.2vmin,86px); font-weight:800; letter-spacing:-0.02em}
     h2{font-size:clamp(28px,4.6vmin,54px); font-weight:800; color:var(--accent)}
@@ -79,14 +71,16 @@
     .badge{
       position:fixed; bottom:20px; right:20px;
       font-size:clamp(12px,1.8vmin,14px);
-      color:#111; background:rgba(255,255,255,.75); backdrop-filter:blur(6px);
+      color:#111; background:rgba(255,255,255,.78); backdrop-filter:blur(6px);
       border:1px solid #eee; border-radius:12px; padding:.5em .8em;
       box-shadow:0 10px 25px rgba(16,24,40,.08);
+      z-index:9999;
     }
     .progress{
       position:fixed; top:10px; left:0; height:6px; background:linear-gradient(90deg,var(--blue),var(--red));
       width:0%; transition:width .35s ease;
       box-shadow:0 0 0 1px rgba(0,0,0,.02) inset;
+      z-index:9999;
     }
     .dot{
       position:absolute; top:50%; left:50%; width:18vmin; height:18vmin; border-radius:50%;
@@ -94,7 +88,8 @@
       filter:blur(0.2px);
       animation:beat 1.6s ease-in-out infinite;
       transform:translate(-50%,-50%);
-      opacity:.28;
+      opacity:.18;
+      z-index:0;
     }
     @keyframes beat{
       0%{transform:translate(-50%,-50%) scale(1)}
@@ -106,54 +101,60 @@
       border-left:4px solid var(--accent);
       padding-left:1rem; margin-top:.6rem; color:#1f2937;
       font-weight:500; font-style:italic;
-      background:#ffffffb3; border-radius:6px; padding:.8rem 1rem; display:inline-block;
+      background:#ffffffb8; border-radius:6px; padding:.8rem 1rem; display:inline-block;
       box-shadow:0 6px 20px rgba(0,0,0,.06);
     }
     .small{font-size:clamp(13px,1.8vmin,16px)}
-    .credit{position:fixed; left:20px; bottom:20px; font-size:12px; color:#6b7280}
+    .credit{position:fixed; left:20px; bottom:20px; font-size:12px; color:#6b7280; z-index:9999}
     .kbd-help{display:inline-block; margin-left:.3em; opacity:.85}
     .cover .super{font-size:clamp(14px,1.8vmin,16px); text-transform:uppercase; letter-spacing:.18em; color:var(--muted); font-weight:700}
     .cover h1 span{color:var(--accent)}
     .footnotes{opacity:.8; font-size:clamp(12px,1.6vmin,14px)}
     .exit{
-      position:fixed; top:12px; right:12px;
-      z-index:9999;
+      position:fixed; top:12px; right:12px; z-index:9999;
       background:var(--red); color:#fff; text-decoration:none; font-weight:700;
       padding:.42rem .7rem; border-radius:8px; border:1px solid rgba(0,0,0,.08);
-      box-shadow:0 6px 18px rgba(225,29,72,.25);
-      font-size:14px;
+      box-shadow:0 6px 18px rgba(225,29,72,.25); font-size:14px;
     }
     .exit:focus{outline:3px solid rgba(225,29,72,.35); outline-offset:2px}
     @media (max-width:900px){ .cols-2{grid-template-columns:1fr} }
 
-    /* Médias */
-    .media{
-      border-radius:14px; overflow:hidden; box-shadow:0 16px 40px rgba(0,0,0,.18); margin-top:1rem;
-      background:#fff;
+    /* --- Fonds par slide (plus visibles) --- */
+    .backdrop{
+      position:absolute; inset:0; z-index:-1;
+      background-position:center; background-size:cover; background-repeat:no-repeat;
+      opacity:var(--bgop, .28);
+      filter:saturate(.95) contrast(.98) blur(.4px);
     }
-    .media img, .media svg, .media iframe, .media video{width:100%; display:block}
-    figcaption.small{margin-top:.4rem}
+    .slide::after{
+      content:""; position:absolute; inset:0; z-index:0;
+      background:linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,.38));
+      pointer-events:none;
+    }
   </style>
 </head>
 <body class="monument">
   <div class="tricolor"></div>
-  <div class="marble" aria-hidden="true"></div>
 
   <div class="progress" id="progress"></div>
   <a class="exit" href="index.html" title="Quitter">Quitter</a>
 
-  <!-- COUVERTURE -->
+  <!-- COUVERTURE (drapeau FR en fond, plus présent) -->
   <section class="slide current cover" data-title="Couverture">
+    <div class="backdrop" style="--bgop:.24; background-image:
+      linear-gradient(90deg,#0b3aa4 0 33%,#ffffff 33% 66%,#b11226 66% 100%);"></div>
     <div class="dot" aria-hidden="true"></div>
     <div class="content">
       <div class="super">Analyse d'œuvre - 3e</div>
       <h1><span>La Marseillaise</span> – Hymne national</h1>
       <p class="muted">Claude Joseph Rouget de Lisle • 1792 • Chant révolutionnaire devenu symbole de la République.</p>
       <p class="small muted">Présenté par : <strong>Elouan VERGUIN</strong> – Classe 3e</p>
-      <img srx=https://photos.tf1info.fr/images/700/700/illustration-drapeau-francais-a4678c-0@1x.jpeg"
+    </div>
+  </section>
 
-  <!-- IDEE -->
+  <!-- IDÉE : Marianne / Delacroix en fond -->
   <section class="slide" data-title="L’idée">
+    <div class="backdrop" style="--bgop:.32; background-image:url('https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/La_Libert%C3%A9_guidant_le_peuple_-_Eug%C3%A8ne_Delacroix_-_Mus%C3%A9e_du_Louvre_Peintures_RF_129_-_apr%C3%A8s_restauration_2024.jpg/1280px-La_Libert%C3%A9_guidant_le_peuple_-_Eug%C3%A8ne_Delacroix_-_Mus%C3%A9e_du_Louvre_Peintures_RF_129_-_apr%C3%A8s_restauration_2024.jpg');"></div>
     <div class="content">
       <h2>L’idée en une phrase</h2>
       <p><strong>Un appel au peuple</strong> à défendre la liberté et la patrie contre la tyrannie.</p>
@@ -162,7 +163,21 @@
     </div>
   </section>
 
-  <!-- CONTEXTE + PARTITION (image fiable) -->
+  <!-- NOUVELLE DIAPO : Pourquoi ce choix ? (fond sans nouveau lien) -->
+  <section class="slide" data-title="Pourquoi ce choix ?">
+    <div class="backdrop" style="--bgop:.22; background-image:
+      radial-gradient(circle at 30% 20%, #fff 0%, #f3f3f3 40%, #e9e9e9 100%);"></div>
+    <div class="content">
+      <h2>Pourquoi j’ai choisi cette chanson</h2>
+      <ul>
+        <li>Elle défend clairement la <strong>liberté</strong> et la <strong>résistance à l’oppression</strong>.</li>
+        <li>Elle <strong>rassemble</strong> encore aujourd’hui (cérémonies, sport).</li>
+        <li>Exemple parfait d’une <strong>chanson engagée</strong> qui a traversé le temps.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTEXTE : partition en fond (tu as choisi de ne pas afficher d'image ici, je respecte) -->
   <section class="slide" data-title="Contexte">
     <div class="content grid cols-2">
       <div>
@@ -174,119 +189,50 @@
         </ul>
       </div>
       <div>
-        <figure class="media">
-          <!-- Partition (Wikimedia fiable) -->
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Pils_rouget_lisle_chantant_marseillaise_mb_%28Mus%C3%A9e%29.jpg/1280px-Pils_rouget_lisle_chantant_marseillaise_mb_%28Mus%C3%A9e%29.jpg" alt="Partition originale de La Marseillaise (image Wikimedia Commons)">
-        </figure>
-        <figcaption class="small muted">Partition originale de « La Marseillaise ».</figcaption>
-      </div>
-    </div>
-  </section>
-
-  <!-- AUTEUR (portrait fiable) -->
-  <section class="slide" data-title="Auteur">
-    <div class="content grid cols-2">
-      <div>
-        <h2>Claude Joseph Rouget de Lisle</h2>
+        <h3>Langage & musique</h3>
         <ul>
-          <li>Officier et compositeur.</li>
-          <li>Écrit paroles et musique <strong>en une nuit</strong> (25→26 avril 1792).</li>
-          <li>Chanson d’abord intitulée <em>Chant de guerre pour l’armée du Rhin</em>.</li>
+          <li>Paroles énergiques et directes.</li>
+          <li>Rythme entraînant, facile à chanter.</li>
         </ul>
       </div>
-      <div>
-        <figure class="media">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Rouget_de_lisle.JPG" alt="Rouget de Lisle (portrait, Wikimedia Commons)">
-        </figure>
-        <figcaption class="small muted">Rouget de Lisle.</figcaption>
-      </div>
     </div>
   </section>
 
-  <!-- SYMBOLE : ARC DE TRIOMPHE (SVG stylisé = lien 100% fiable) -->
+  <!-- PERSONNAGES : Rouget de Lisle (Pils) en fond -->
+  <section class="slide" data-title="Personnages">
+    <div class="backdrop" style="--bgop:.30; background-image:url('https://upload.wikimedia.org/wikipedia/commons/6/6c/Pils_rouget_lisle_chantant_marseillaise_mb_%28Mus%C3%A9e%29.jpg');"></div>
+    <div class="content">
+      <h2>Les personnages de la Marseillaise</h2>
+      <ul>
+        <li><strong>Rouget de Lisle</strong>, auteur-compositeur (paroles et musique).</li>
+        <li>Les <strong>volontaires de 1792</strong> (dits « Marseillais ») qui popularisent le chant.</li>
+        <li><strong>Marianne</strong>, allégorie de la Liberté, reprise par l’iconographie républicaine.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SYMBOLE : (fond gris doux sans nouveau lien) -->
   <section class="slide" data-title="Symbole">
+    <div class="backdrop" style="--bgop:.22; background-image:
+      radial-gradient(circle at 30% 20%, #fff 0%, #f3f3f3 40%, #e9e9e9 100%);"></div>
     <div class="content">
       <h2>Un symbole national</h2>
       <p>La Marseillaise incarne la <strong>liberté</strong>, la <strong>République</strong> et le <strong>rassemblement</strong>.</p>
-      <figure class="media">
-        <!-- Arc de Triomphe en SVG (pour garantir l'affichage) -->
-        <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arc de Triomphe stylisé">
-          <defs>
-            <linearGradient id="g" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0" stop-color="#f3f0ea"/>
-              <stop offset="1" stop-color="#e5e0d8"/>
-            </linearGradient>
-          </defs>
-          <rect width="100%" height="100%" fill="#ffffff"/>
-          <g transform="translate(100,40)" stroke="#c8c2b8" stroke-width="6" fill="url(#g)">
-            <rect x="0" y="0" width="1000" height="160" />
-            <rect x="70" y="160" width="860" height="100" />
-            <rect x="0" y="260" width="1000" height="380" />
-            <!-- Grande arche -->
-            <rect x="360" y="320" width="280" height="320" fill="#fff" stroke="#d4cec4"/>
-            <path d="M360,320 h280 v40 h-280 z" fill="#ece7df" stroke="none"/>
-            <!-- Colonnes latérales -->
-            <rect x="120" y="340" width="120" height="300" />
-            <rect x="760" y="340" width="120" height="300" />
-          </g>
-        </svg>
-        <figcaption class="small muted">Arc de Triomphe (stylisé) – lieu de cérémonies où résonne l’hymne.</figcaption>
-      </figure>
+      <p class="muted small">Des volontaires aux cérémonies contemporaines, elle traverse les époques.</p>
     </div>
   </section>
 
-  <!-- PEINTURE (Delacroix, image fiable sur Wikimedia) -->
-  <section class="slide" data-title="Idéaux">
-    <div class="content">
-      <h2>Les idéaux de la Révolution</h2>
-      <p>Liberté • Égalité • Fraternité – un imaginaire visuel puissant qui accompagne l’hymne.</p>
-      <figure class="media">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Delacroix_-_La_Libert%C3%A9_guidant_le_peuple_%281830%29.jpg" alt="Eugène Delacroix, La Liberté guidant le peuple (Wikimedia Commons)">
-      </figure>
-      <figcaption class="small muted">Delacroix, <em>La Liberté guidant le peuple</em> (1830).</figcaption>
-    </div>
-  </section>
-
-  <!-- VIDEO : autoplay (gérée par script + YouTube API) -->
-  <section class="slide" data-title="Écouter">
-    <div class="content">
-      <h2>Écouter « La Marseillaise »</h2>
-      <p class="muted small">La vidéo démarre automatiquement quand vous arrivez sur cette page.</p>
-      <figure class="media">
-        <iframe
-          class="yt"
-          width="100%" height="460"
-          src="https://www.youtube.com/embed/4K1q9Ntcr5g?enablejsapi=1&autoplay=0&mute=1&rel=0&modestbranding=1&playsinline=1"
-          title="La Marseillaise - Hymne national (instrumental)"
-          frameborder="0"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin"
-          data-autoplay="1">
-        </iframe>
-      </figure>
-      <p class="small muted">Astuce : appuie sur <span class="kbd">M</span> pour couper/rétablir le son.</p>
-    </div>
-  </section>
-
-  <!-- CONCLUSION -->
+  <!-- CONCLUSION corrigée (même lien d'image conservé) -->
   <section class="slide" data-title="Conclusion">
+    <div class="backdrop" style="--bgop:.30; background-image:url('https://jamespot.com/wp-content/uploads/2025/02/Drapeau-francais.png');"></div>
     <div class="content">
       <h2>Conclusion</h2>
       <ul>
-        <li>Un chant né dans l’urgence, porté par un idéal de <strong>liberté</strong>.</li>
-        <li>Devenu un <strong>symbole national</strong> qui nous rassemble.</li>
-        <li>Un héritage vivant, chanté et transmis.</li>
+        <li><strong>Auteur / nature / date</strong> : Rouget de Lisle • chanson patriotique • 1792.</li>
+        <li><strong>Idée défendue</strong> : liberté, unité, résistance à l’oppression.</li>
+        <li><strong>Comment c’est engagé</strong> : appel direct à agir + chant choral qui rassemble.</li>
+        <li><strong>Pourquoi ce choix</strong> : œuvre simple et forte, toujours vivante aujourd’hui.</li>
       </ul>
-      <figure class="media">
-        <!-- Cocarde tricolore (SVG intégré) -->
-        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cocarde tricolore">
-          <circle cx="200" cy="200" r="180" fill="#EF4135"/>
-          <circle cx="200" cy="200" r="130" fill="#FFFFFF"/>
-          <circle cx="200" cy="200" r="80"  fill="#0055A4"/>
-        </svg>
-        <figcaption class="small muted">Cocarde tricolore.</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -299,7 +245,7 @@
       const progress=document.getElementById('progress');
       let i=0;
 
-      // Utilitaire YouTube API: play/pause via postMessage
+      // API YouTube (conservée si tu ajoutes une vidéo plus tard)
       function ytCommand(iframe, command){
         if(!iframe || !iframe.contentWindow) return;
         iframe.contentWindow.postMessage(JSON.stringify({
@@ -307,57 +253,40 @@
         }), "*");
       }
       function pauseAllMedia(){
-        // Pause all HTML5 <video>
         document.querySelectorAll('video').forEach(v=>{ try{ v.pause(); }catch(e){} });
-        // Pause all YouTube iframes
-        document.querySelectorAll('iframe.yt').forEach(f=>{ ytCommand(f, 'pauseVideo'); });
+        document.querySelectorAll('iframe.yt').forEach(f=>{ try{ ytCommand(f, 'pauseVideo'); }catch(e){} });
       }
       function activateMedia(slideEl){
-        // Autoplay HTML5 <video>
         slideEl.querySelectorAll('video[data-autoplay]').forEach(v=>{
-          v.muted = true; // autoplay policy
-          v.playsInline = true;
-          v.play().catch(()=>{ /* silencieux si bloqué */ });
+          v.muted = true; v.playsInline = true;
+          v.play().catch(()=>{});
         });
-        // Autoplay YouTube
         slideEl.querySelectorAll('iframe.yt[data-autoplay]').forEach(f=>{
-          ytCommand(f, 'playVideo');
+          try{ ytCommand(f, 'playVideo'); }catch(e){}
         });
       }
 
       function show(idx){
         if(idx<0||idx>=slides.length) return;
         slides[i].classList.remove('current');
-        pauseAllMedia(); // couper médias de l'ancienne diapo
+        pauseAllMedia();
         i=idx;
         slides[i].classList.add('current');
         progress.style.width=((i+1)/slides.length*100).toFixed(2)+'%';
         document.title=slides[i].dataset.title+' – La Marseillaise';
-        // lancer médias de la diapo en cours
-        setTimeout(()=>activateMedia(slides[i]), 100);
+        setTimeout(()=>activateMedia(slides[i]), 120);
       }
       function next(){ if(i<slides.length-1) show(i+1); }
       function prev(){ if(i>0) show(i-1); }
 
-      // Raccourcis clavier
       window.addEventListener('keydown',(e)=>{
-        if(e.code==='Space'){
-          e.preventDefault();
-          if(e.shiftKey) prev(); else next();
-        }
-        // M = mute/unmute de la vidéo YouTube active
-        if(e.key.toLowerCase()==='m'){
-          const activeYT = slides[i].querySelector('iframe.yt');
-          if(activeYT){
-            // Basculer mute via API
-            // On essaie d'abord d'unmute, puis si déjà unmute on remute
-            ytCommand(activeYT, 'unMute');
-            ytCommand(activeYT, 'playVideo');
-          }
+        if(e.code==='Space'){ e.preventDefault(); if(e.shiftKey) prev(); else next(); }
+        if(e.key && e.key.toLowerCase()==='m'){
+          const yt = slides[i].querySelector('iframe.yt');
+          if(yt){ ytCommand(yt, 'unMute'); ytCommand(yt, 'playVideo'); }
         }
       });
 
-      // Initialisation
       show(0);
     })();
   </script>
